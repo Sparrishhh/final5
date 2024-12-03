@@ -1,0 +1,75 @@
+// Mock data for recommendations
+const recommendations = [
+    { 
+        title: 'Mahabodhi Temple, Bihar, India',
+        description: 'A sacred site where Buddha attained enlightenment, an architectural marvel.',
+        imageUrl: 'Temple.png',
+        keywords: ['temple', 'history']
+    },
+    { 
+        title: 'Angkor Wat, Cambodia',
+        description: 'A UNESCO World Heritage site and the largest religious monument in the world.',
+        imageUrl: 'Temple.png',
+        keywords: ['temple', 'history']
+    },
+    { 
+        title: 'Plockton, Scotland',
+        description: 'A picturesque village known for its stunning coastal views and traditional Scottish charm.',
+        imageUrl: 'country2.png',
+        keywords: ['country', 'scotland']
+    },
+    { 
+        title: 'Arlesford, England',
+        description: 'A charming village with scenic landscapes and historical architecture.',
+        imageUrl: 'country.png',
+        keywords: ['country', 'england']
+    },
+    { 
+        title: 'Fulhadhoo, Maldives',
+        description: 'An idyllic island with crystal-clear waters, perfect for a serene beach getaway.',
+        imageUrl: 'beach.png',
+        keywords: ['beach', 'maldives']
+    },
+    { 
+        title: 'Hāʻena Beach Park, Kauai',
+        description: 'Renowned for its stunning natural beauty and ideal for swimming and surfing.',
+        imageUrl: 'beach2.png',
+        keywords: ['beach', 'kauai']
+    }
+];
+
+// Function to search recommendations based on user input
+function searchRecommendations() {
+    const query = document.getElementById('searchBar').value.toLowerCase();
+    const results = recommendations.filter((rec) => 
+        rec.keywords.some(keyword => keyword.toLowerCase().includes(query))
+    );
+    displayRecommendations(results);
+}
+
+// Function to display filtered recommendations
+function displayRecommendations(results) {
+    const container = document.getElementById('recommendationResults');
+    container.innerHTML = '';
+
+    if (results.length > 0) {
+        results.forEach((rec) => {
+            const card = document.createElement('div');
+            card.classList.add('recommendation-card');
+            card.innerHTML = `
+                <h3>${rec.title}</h3>
+                <img src="${rec.imageUrl}" alt="${rec.title}" style="width: 100%; height: auto;">
+                <p>${rec.description}</p>
+            `;
+            container.appendChild(card);
+        });
+    } else {
+        container.innerHTML = '<p>No recommendations found.</p>';
+    }
+}
+
+// Function to clear search results
+function clearResults() {
+    document.getElementById('searchBar').value = '';
+    displayRecommendations([]);
+}
